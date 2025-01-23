@@ -5,13 +5,18 @@ st.title("Cursor Movement Using Hand Gesture")
 st.write("Control your cursor with hand gestures!")
 
 # Buttons to start/stop the gesture detection program
-if st.button("Start Gesture Detection"):
+import requests
+
+if st.button("Start Gesture Control"):
     try:
-        # Launch the main program
-        subprocess.Popen(["python", "main.py"])
-        st.success("Gesture detection started! Use your webcam to control the cursor.")
+        response = requests.get("http://localhost:5000/start")  # Replace with your local server URL
+        if response.status_code == 200:
+            st.success("Gesture Control started!")
+        else:
+            st.error("Failed to start Gesture Control.")
     except Exception as e:
-        st.error(f"Error starting program: {e}")
+        st.error(f"Error: {e}")
+
 
 if st.button("Stop Gesture Detection"):
     try:
